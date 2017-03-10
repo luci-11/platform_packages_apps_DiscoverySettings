@@ -68,10 +68,12 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
     private static final String KEY_HOME_DOUBLE_TAP        = "hardware_keys_home_double_tap";
     private static final String KEY_BACK_LONG_PRESS        = "hardware_keys_back_long_press";
     private static final String KEY_BACK_DOUBLE_TAP        = "hardware_keys_back_double_tap";
+    private static final String KEY_MENU_PRESS = "hardware_keys_menu_press";
     private static final String KEY_MENU_LONG_PRESS        = "hardware_keys_menu_long_press";
     private static final String KEY_MENU_DOUBLE_TAP        = "hardware_keys_menu_double_tap";
     private static final String KEY_ASSIST_LONG_PRESS      = "hardware_keys_assist_long_press";
     private static final String KEY_ASSIST_DOUBLE_TAP      = "hardware_keys_assist_double_tap";
+    private static final String KEY_APP_SWITCH_PRESS = "hardware_keys_app_switch_press";
     private static final String KEY_APP_SWITCH_LONG_PRESS  = "hardware_keys_app_switch_long_press";
     private static final String KEY_APP_SWITCH_DOUBLE_TAP  = "hardware_keys_app_switch_double_tap";
     private static final String KEY_CAMERA_LONG_PRESS      = "hardware_keys_camera_long_press";
@@ -96,10 +98,12 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
     private ListPreference mHomeDoubleTapAction;
     private ListPreference mBackLongPressAction;
     private ListPreference mBackDoubleTapAction;
+    private ListPreference mMenuPressAction;
     private ListPreference mMenuLongPressAction;
     private ListPreference mMenuDoubleTapAction;
     private ListPreference mAssistLongPressAction;
     private ListPreference mAssistDoubleTapAction;
+    private ListPreference mAppSwitchPressAction;
     private ListPreference mAppSwitchLongPressAction;
     private ListPreference mAppSwitchDoubleTapAction;
     private ListPreference mCameraLongPressAction;
@@ -155,7 +159,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Home Key Long Press */
         int defaultLongPressOnHardwareHomeBehavior = res.getInteger(
-                com.android.internal.R.integer.config_longPressOnHomeKeyBehavior);
+                com.android.internal.R.integer.config_longPressOnHomeBehavior);
         int longPressOnHardwareHomeBehavior = Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_HOME_LONG_PRESS_ACTION,
                     defaultLongPressOnHardwareHomeBehavior,
@@ -164,7 +168,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Home Key Double Tap */
         int defaultDoubleTapOnHardwareHomeBehavior = res.getInteger(
-                com.android.internal.R.integer.config_doubleTapOnHomeKeyBehavior);
+                com.android.internal.R.integer.config_doubleTapOnHomeBehavior);
         int doubleTapOnHardwareHomeBehavior = Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_HOME_DOUBLE_TAP_ACTION,
                     defaultDoubleTapOnHardwareHomeBehavior,
@@ -173,7 +177,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Back Key Long Press */
         int defaultLongPressOnHardwareBackBehavior = res.getInteger(
-                com.android.internal.R.integer.config_longPressOnBackKeyBehavior);
+                com.android.internal.R.integer.config_longPressOnBackBehavior);
         int longPressOnHardwareBackBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_BACK_LONG_PRESS_ACTION,
                 defaultLongPressOnHardwareBackBehavior,
@@ -182,7 +186,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Back Key Double Tap */
         int defaultDoubleTapOnHardwareBackBehavior = res.getInteger(
-                com.android.internal.R.integer.config_doubleTapOnBackKeyBehavior);
+                com.android.internal.R.integer.config_doubleTapOnBackBehavior);
         int doubleTapOnHardwareBackBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_BACK_DOUBLE_TAP_ACTION,
                 defaultDoubleTapOnHardwareBackBehavior,
@@ -191,7 +195,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Menu Key Long Press */
         int defaultLongPressOnHardwareMenuBehavior = res.getInteger(
-                com.android.internal.R.integer.config_longPressOnMenuKeyBehavior);
+                com.android.internal.R.integer.config_longPressOnMenuBehavior);
         int longPressOnHardwareMenuBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_MENU_LONG_PRESS_ACTION,
                 defaultLongPressOnHardwareMenuBehavior,
@@ -200,7 +204,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Menu Key Double Tap */
         int defaultDoubleTapOnHardwareMenuBehavior = res.getInteger(
-                com.android.internal.R.integer.config_doubleTapOnMenuKeyBehavior);
+                com.android.internal.R.integer.config_doubleTapOnMenuBehavior);
         int doubleTapOnHardwareMenuBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_MENU_DOUBLE_TAP_ACTION,
                 defaultDoubleTapOnHardwareMenuBehavior,
@@ -209,7 +213,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Assist Key Long Press */
         int defaultLongPressOnHardwareAssistBehavior = res.getInteger(
-                com.android.internal.R.integer.config_longPressOnAssistKeyBehavior);
+                com.android.internal.R.integer.config_longPressOnAssistBehavior);
         int longPressOnHardwareAssistBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_ASSIST_LONG_PRESS_ACTION,
                 defaultLongPressOnHardwareAssistBehavior,
@@ -218,7 +222,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Assist Key Double Tap */
         int defaultDoubleTapOnHardwareAssistBehavior = res.getInteger(
-                com.android.internal.R.integer.config_doubleTapOnAssistKeyBehavior);
+                com.android.internal.R.integer.config_doubleTapOnAssistBehavior);
         int doubleTapOnHardwareAssistBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_ASSIST_DOUBLE_TAP_ACTION,
                 defaultDoubleTapOnHardwareAssistBehavior,
@@ -227,7 +231,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* AppSwitch Key Long Press */
         int defaultLongPressOnHardwareAppSwitchBehavior = res.getInteger(
-                com.android.internal.R.integer.config_longPressOnAppSwitchKeyBehavior);
+                com.android.internal.R.integer.config_longPressOnAppSwitchBehavior);
         int longPressOnHardwareAppSwitchBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
                 defaultLongPressOnHardwareAppSwitchBehavior,
@@ -236,7 +240,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* AppSwitch Key Double Tap */
         int defaultDoubleTapOnHardwareAppSwitchBehavior = res.getInteger(
-                com.android.internal.R.integer.config_doubleTapOnAppSwitchKeyBehavior);
+                com.android.internal.R.integer.config_doubleTapOnAppSwitchBehavior);
         int doubleTapOnHardwareAppSwitchBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_APP_SWITCH_DOUBLE_TAP_ACTION,
                 defaultDoubleTapOnHardwareAppSwitchBehavior,
@@ -245,7 +249,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Camera Key Long Press */
         int defaultLongPressOnHardwareCameraBehavior = res.getInteger(
-                com.android.internal.R.integer.config_longPressOnCameraKeyBehavior);
+                com.android.internal.R.integer.config_longPressOnCameraBehavior);
         int longPressOnHardwareCameraBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_CAMERA_LONG_PRESS_ACTION,
                 defaultLongPressOnHardwareCameraBehavior,
@@ -254,7 +258,7 @@ public class ButtonsSettings extends SettingsPreferenceFragment implements
 
         /* Camera Key Double Tap */
         int defaultDoubleTapOnHardwareCameraBehavior = res.getInteger(
-                com.android.internal.R.integer.config_doubleTapOnCameraKeyBehavior);
+                com.android.internal.R.integer.config_doubleTapOnCameraBehavior);
         int doubleTapOnHardwareCameraBehavior = Settings.System.getIntForUser(resolver,
                 Settings.System.KEY_CAMERA_DOUBLE_TAP_ACTION,
                 defaultDoubleTapOnHardwareCameraBehavior,
